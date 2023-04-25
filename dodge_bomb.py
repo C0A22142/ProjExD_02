@@ -66,7 +66,6 @@ def main():
         bb_img.set_colorkey((0, 0, 0))
     tmr = 0
     
-    
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
