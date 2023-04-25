@@ -15,6 +15,7 @@ delta = {
     pg.K_LEFT: (-1, 0)
         }
 
+
 def check_bound(scr_rct: pg.Rect, obj_rct: pg.Rect):
     """
     オブジェクトが画面内もしくは画面外を判定し、真理値タプルを返す関数
@@ -38,6 +39,12 @@ def main():
 
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kk_imgs = {
+        (0, -1): pg.transform.rotozoom(kk_img, 90, 2.0),
+        (+1, -1): pg.transform.rotozoom(kk_img, 45, 2.0),
+        (-1, -1): pg.transform.rotozoom(kk_img, -45, 2.0),
+
+    }
     kk_rct = kk_img.get_rect()  # 練習４
     kk_rct.center = (900, 400)  # 練習４
 
@@ -52,20 +59,19 @@ def main():
     accs = [a for a in range(1, 11)]
     
     bb_imgs = []
-    for r in range(1, 11):
+    for r in range(1, 11): # 拡大爆弾Surfaceのリスト
         bb_img = pg.Surface((20*r, 20*r))
         pg.draw.circle(bb_img, (255, 0, 0), (10*r, 10*r), 10*r)
         bb_imgs.append(bb_img)
         bb_img.set_colorkey((0, 0, 0))
     tmr = 0
     
-
+    
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return 0
         
-
         tmr += 1
 
         # 練習４
@@ -82,9 +88,6 @@ def main():
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rct) # 練習４
 
-        
-        
-        
         yoko, tate = check_bound(screen.get_rect(), bb_rct)
         if not yoko:  # 横方向にはみ出ていたら
             vx *= -1
@@ -98,8 +101,6 @@ def main():
         if kk_rct.colliderect(bb_rct):  # 練習６
             return
         
-
-
         pg.display.update()
         clock.tick(1000)
 
