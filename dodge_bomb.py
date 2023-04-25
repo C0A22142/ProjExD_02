@@ -59,9 +59,6 @@ def main():
         bb_img.set_colorkey((0, 0, 0))
     tmr = 0
     
-    
-    
-
 
     while True:
         for event in pg.event.get():
@@ -94,10 +91,11 @@ def main():
         if not tate:  # 縦方向にはみ出ていたら
             vy *= -1
         screen.blit(bb_img, bb_rct)  # 練習３
+
         bb_img = bb_imgs[min(tmr//1000, 9)]
-        avx, avy = vx*accs[min(tmr//1000, 9)], vy*accs[min(tmr//1000, 9)]
+        avx, avy = vx*accs[min(tmr//1000, 9)], vy*accs[min(tmr//1000, 9)]  # 加速度のリスト
         bb_rct.move_ip(vx + avx, vy + avy)  # 練習３
-        if kk_rct.colliderect(bb_rct):  #練習６
+        if kk_rct.colliderect(bb_rct):  # 練習６
             return
         
 
