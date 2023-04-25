@@ -3,6 +3,7 @@ import sys
 
 import pygame as pg
 
+# 練習４
 delta = {
     pg.K_UP: (0, -1),
     pg.K_DOWN: (0, +1),
@@ -30,22 +31,19 @@ def main():
     screen = pg.display.set_mode((1600, 900))
     clock = pg.time.Clock()
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
-
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
-    kk_rct = kk_img.get_rect()  #練習４
-    kk_rct.center = (900, 400)  #練習４
+    kk_rct = kk_img.get_rect()  # 練習４
+    kk_rct.center = (900, 400)  # 練習４
 
-    bb_img = pg.Surface((20, 20))  # 練習１
+    bb_img = pg.Surface((20, 20))  
     bb_img.set_colorkey((0, 0, 0))  # 練習１
     pg.draw.circle(bb_img, (255, 0, 0), (10, 10), 10)  # 練習１
-
     x, y = random.randint(0, 1600), random.randint(0, 900)  # 練習２
-    screen.blit(bb_img, [x, y])
-    vx, vy = +1, +1
-    bb_rct = bb_img.get_rect()
-    bb_rct.center = (x, y)
-    
+    #screen.blit(bb_img, [x, y])  # 練習２
+    vx, vy = +1, +1  # 練習３
+    bb_rct = bb_img.get_rect()  # 練習３
+    bb_rct.center = (x, y)  # 練習３
     tmr = 0
     
     
@@ -59,6 +57,7 @@ def main():
 
         tmr += 1
 
+        # 練習４
         key_lst = pg.key.get_pressed()
         for k, mv in delta.items():
             if key_lst[k]:
@@ -70,15 +69,15 @@ def main():
                     kk_rct.move_ip(-mv[0], -mv[1])
 
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, kk_rct)
-        bb_rct.move_ip(vx, vy)
+        screen.blit(kk_img, kk_rct) # 練習４
+        bb_rct.move_ip(vx, vy)  # 練習３
         yoko, tate = check_bound(screen.get_rect(), bb_rct)
-        if not yoko:
+        if not yoko:  # 横方向にはみ出ていたら
             vx *= -1
-        if not tate:
+        if not tate:  # 縦方向にはみ出ていたら
             vy *= -1
-        screen.blit(bb_img, bb_rct)
-        if kk_rct.colliderect(bb_rct):
+        screen.blit(bb_img, bb_rct)  # 練習３
+        if kk_rct.colliderect(bb_rct):  #練習６
             return
 
         pg.display.update()
